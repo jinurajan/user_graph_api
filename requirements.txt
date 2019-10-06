@@ -1,0 +1,7 @@
+Flask==1.1.1
+Flask_RESTful==0.3.7
+incoming==0.3.1
+jsonschema==3.0.2
+cassandra-driver==3.19.0
+# This is for client code.
+requests==2.22.0
