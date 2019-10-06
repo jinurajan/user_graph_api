@@ -58,12 +58,13 @@ This is a one to Many connection.
 
 
 ## How to run the application
-  
-> cd user_graph_api
-> virtualenv ENV
-> source ENV/bin/activate
-> pip install -r requirements.txt
-> python web_api.py
+```  
+cd user_graph_api
+virtualenv ENV
+source ENV/bin/activate
+pip install -r requirements.txt
+python web_api.py
+```
 
 #### Run dbinit.sql file to create keyspaces and tables required for this application by .
 
@@ -153,6 +154,7 @@ Possible Responses:
 Possible Responses
 - 200 OK with No response body
 - 404 if user does not exists
+
 **NOTE**: If there are many associated users for this user. Deletion from associated database has to be done in the background using celery or kafka like distributed message queue
 
 #### Create Connection/Follow a User
@@ -180,4 +182,5 @@ Possible Responses:
 Possible Responses:
    - 200 OK with no response body
    - 404 if user does not exists
-   **NOTE**: Validation is not done for the following_user_email id as of now and it depends on use cases. 
+
+  **NOTE**: Validation is not done for the following_user_email id as of now and it depends on use cases. 
