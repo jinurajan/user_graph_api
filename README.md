@@ -54,7 +54,8 @@ This is a one to Many connection.
 - [requirements.txt](requirements.txt) - Has all the dependent modules required for this application
 - [seeder.py](seeder.py) - This module has the script to create users and associated users by using the csv files users.csv and following_users.csv
 - [users.csv](users.csv) -  csv file to create users. This is been used by seeder.py
--[web_api.py](web_api.py) - Flask application init file to run User Graph API
+- [web_api.py](web_api.py) - Flask application init file to run User Graph API
+- [architecture_diagram.png](architecture_diagram.png) - High level architecture diagram for this application
 
 
 ## How to run the application
