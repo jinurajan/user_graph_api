@@ -69,7 +69,19 @@ nodes = {user["email"]: user for user in get_all_users()}
 
 # memoization: Below hash will contain distance to all nodes from every other nodes
 
-DISTANCE_VERTEX_ALL = {}
+PATH_VERTEX_ALL = {}
+
+
+def find_path(previous_vertices, source, destination):
+    path = [destination]
+    dest = previous_vertices.get(destination)
+    while dest != source:
+        if not dest:
+            return []
+        path.insert(0, dest)
+        dest = previous_vertices.get(dest)
+    path.insert(0, source)
+    return path
 
 
 def find_shortest_path(source, destination):
@@ -78,9 +90,10 @@ def find_shortest_path(source, destination):
     visited = set()
     minimum_priority_queue.insert((0, source))
     distance_vertex[source] = 0
+    previous_vertices = {}
 
-    if DISTANCE_VERTEX_ALL.get(source):
-        return DISTANCE_VERTEX_ALL[source][destination]
+    if PATH_VERTEX_ALL.get((source, destination)):
+        return PATH_VERTEX_ALL[(source, destination)]
 
     while not minimum_priority_queue.isEmpty():
         vertex = minimum_priority_queue.delete()
@@ -93,10 +106,12 @@ def find_shortest_path(source, destination):
             e = following_users[i]
             w = 1  # in this case all edge weights are equal
             if (distance_vertex[e] is None) or (distance_vertex[v] + w < distance_vertex[e]):
+                previous_vertices[e] = v
                 distance_vertex[e] = distance_vertex[v] + w
                 minimum_priority_queue.insert((distance_vertex[e], e))
-    DISTANCE_VERTEX_ALL[source] = distance_vertex
-    return distance_vertex.get(destination)
+    PATH_VERTEX_ALL[(source, destination)] = find_path(previous_vertices, source, destination)
+    return PATH_VERTEX_ALL[(source, destination)]
+
 
 if __name__ == "__main__":
     print("Shortest path between {} and {} is: {}".format(

@@ -13,10 +13,10 @@ Distance to a vertex if there is no path to that returns None
 # example_node_representation is given below
 
 nodes = {
-    "A": [{"name": "B", "weight": 5}, {"name": "C", "weight": 4}],
-    "B": [{"name": "C", "weight": 3}, {"name": "D", "weight": 2}],
-    "C": [],
-    "D": [{"name": "B", "weight": 1}, {"name": "C", "weight": 5}],
+    "A": [{"name": "B", "weight": 1}, {"name": "C", "weight": 4}],
+    "B": [{"name": "C", "weight": 2}, {"name": "D", "weight": 2}],
+    "C": [{"name": "E", "weight": 2}],
+    "D": [{"name": "B", "weight": 1}, {"name": "C", "weight": 5}, {"name": "E", "weight": 8}],
     "E": [{"name": "D", "weight": 3}]
 }
 
@@ -49,7 +49,19 @@ class MinPriorityQueue(object):
 
 # memoization: Below hash contains distance to all nodes from every other nodes
 
-DISTANCE_VERTEX_ALL = {}
+PATH_VERTEX_ALL = {}
+
+
+def find_path(previous_vertices, source, destination):
+    path = [destination]
+    dest = previous_vertices.get(destination)
+    while dest != source:
+        if not dest:
+            return []
+        path.insert(0, dest)
+        dest = previous_vertices.get(dest)
+    path.insert(0, source)
+    return path
 
 
 def find_shortest_path(source, destination):
@@ -58,9 +70,10 @@ def find_shortest_path(source, destination):
     visited = set()
     minimum_priority_queue.insert((0, source))
     distance_vertex[source] = 0
+    previous_vertices = {}
 
-    if DISTANCE_VERTEX_ALL.get(source):
-        return DISTANCE_VERTEX_ALL[source][destination]
+    if PATH_VERTEX_ALL.get((source, destination)):
+        return PATH_VERTEX_ALL[(source, destination)]
 
     while not minimum_priority_queue.isEmpty():
         vertex = minimum_priority_queue.delete()
@@ -72,11 +85,11 @@ def find_shortest_path(source, destination):
             e = nodes[v][i]["name"]
             w = nodes[v][i]["weight"]
             if (distance_vertex[e] is None) or (distance_vertex[v] + w < distance_vertex[e]):
+                previous_vertices[e] = v
                 distance_vertex[e] = distance_vertex[v] + w
                 minimum_priority_queue.insert((distance_vertex[e], e))
-    DISTANCE_VERTEX_ALL[source] = distance_vertex
-    return distance_vertex.get(destination)
-
+    PATH_VERTEX_ALL[(source, destination)] = find_path(previous_vertices, source, destination)
+    return PATH_VERTEX_ALL[(source, destination)]
 
 if __name__ == "__main__":
     print("Shortest Path between {} and {} is: {}".format(
