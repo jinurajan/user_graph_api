@@ -44,11 +44,10 @@ This is a one to Many connection.
 - [dal](dal) - All database abstraction layer for db interactions exists in this folder
 - [models](models) - All Data models for User Graph API
 - [services](services ) -  Contains the business logic for User Graph API
-- [adapters](adapters) - This is the layer which has the transformation logic for each type of devices
 - [tests](tests) - Placeholder to contain all the UTs
 - [tools](tools) - Placeholder to contain all the scripts related to User Graph API for eg: script to run ut, CI and CD etc
 - [client.py](client.py) - This is a sample code to demonstrate how to find the shortest path between two nodes using dijkstra's algorithm. This has the usecase for nodes with different weighted edges
-- [client_with_api.py](client_with_api.py) - This contains the second part of the problem definition which uses API calls to find the shortest path between two nodes (users in this case and weigh is considered as 1)
+- [client_with_api.py](client_with_api.py) - This contains the second part of the problem definition which uses API calls to find the shortest path between two nodes (users in this case and weight is considered as 1)
 - [dbinit.cql](dbinit.cql) - This is the cql script to create keyspaces and tables for this application
 -  [following_users.csv](following_users.csv) - csv file to create associations or following users. This is been used by the seeder.py
 - [requirements.txt](requirements.txt) - Has all the dependent modules required for this application
