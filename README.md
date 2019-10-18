@@ -69,12 +69,12 @@ python web_api.py
 
 #### Run dbinit.sql file to create keyspaces and tables required for this application by .
 
-    cqlsh dbinit.cql 127.0.0.1
+    cqlsh -f dbinit.cql 127.0.0.1 9042
 if you have a different host, username, password for cassandra use the below command
 ```
 cqlsh -u {username} -p {password} -f dbinit.cql {host}
 ```
-**NOTE**: This Application is handled cassandra connection with username and password as of now
+**NOTE**: This Application is handled cassandra connection without username and password as of now
 
 #### Run the seeder to populate some data to the application from csv file from a different tab with ENV activated as above
 
